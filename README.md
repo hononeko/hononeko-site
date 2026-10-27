@@ -24,7 +24,7 @@ A new page should reuse the hero, `.card`, `.grid`, `.install` and `pre.term` bl
 
 ## Adding a tool
 
-1. Add `public/<tool>/index.html`, starting from `public/sshx/index.html`, and any images it uses.
+1. Add `public/<tool>/index.html`, starting from `public/sshx/index.html`, and any images it uses. Copy `robots.txt` and `sitemap.xml` from `public/sshx/` and change the host in each; update the page's canonical URL, Open Graph tags and JSON-LD the same way.
 2. Add the tool to `SITES` in `src/worker.js`.
 3. Add `<tool>.hononeko.app` to `routes` in `wrangler.jsonc`.
 4. Add a card to `public/hub/index.html` and a link in the other pages' footers.
