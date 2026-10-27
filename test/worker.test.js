@@ -13,7 +13,7 @@ function fakeAssets(table) {
       const entry = table[path];
       if (!entry) return new Response("missing", { status: 404 });
       if (entry.redirect) return new Response(null, { status: 307, headers: { Location: entry.redirect } });
-      return new Response(entry.body, { headers: { "Content-Type": "text/html" } });
+      return new Response(entry.body, { headers: { "Content-Type": "text/html", ...entry.headers } });
     },
   };
 }
@@ -59,10 +59,14 @@ describe("fetch", () => {
   });
 
   test("answers a missing page with the shared 404 page", async () => {
-    const assets = fakeAssets({ "/_shared/404": { body: "lost in the woods" } });
+    // Like the real binding, which applies public/_headers to /_shared/ files.
+    const sharedCache = { "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800" };
+    const assets = fakeAssets({ "/_shared/404": { body: "lost in the woods", headers: sharedCache } });
     const res = await get("https://doppel.hononeko.app/nope", assets);
     expect(res.status).toBe(404);
     expect(await res.text()).toBe("lost in the woods");
+    // A 404 must not be cached for a day like the shared file it's built from.
+    expect(res.headers.get("Cache-Control")).toBe("public, max-age=0, must-revalidate");
   });
 
   test("maps asset redirects back to the host's own paths", async () => {
@@ -108,6 +112,18 @@ describe("site layout", () => {
       for (const [, path] of html.matchAll(/(?:src|href)="(\/_shared\/[^"]+)"/g)) {
         expect(existsSync(`public${path}`), `${page} → ${path}`).toBe(true);
       }
+    }
+  });
+
+  test("browsers cache shared files for a day, and nothing else", () => {
+    const rules = readFileSync("public/_headers", "utf8").split("\n").filter((l) => l.trim() && !l.startsWith("#"));
+    expect(rules).toEqual(["/_shared/*", "  Cache-Control: public, max-age=86400, stale-while-revalidate=604800"]);
+  });
+
+  test("tool pages keep their images in /_shared/, which skips the Worker", () => {
+    for (const site of SITES) {
+      const html = readFileSync(`public/${site}/index.html`, "utf8");
+      for (const [, src] of html.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)) expect(src).toStartWith("/_shared/");
     }
   });
 

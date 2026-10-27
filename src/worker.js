@@ -48,6 +48,9 @@ export default {
       // Without the .html: the assets binding redirects /x.html to /x.
       const page = await env.ASSETS.fetch(new Request(new URL(`${SHARED}404`, url), request));
       response = new Response(page.body, { status: 404, headers: page.headers });
+      // The page comes from /_shared/, which browsers may cache for a day (public/_headers); a 404 must not be, or a
+      // page added at this URL later would stay hidden.
+      response.headers.set("Cache-Control", "public, max-age=0, must-revalidate");
     } else {
       response = new Response(response.body, response);
     }

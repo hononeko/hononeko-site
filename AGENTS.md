@@ -23,6 +23,7 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 * **No inline scripts or styles:** the Worker's Content-Security-Policy only allows files from the site itself. Scripts go in `public/_shared/site.js`, styles in `theme.css`. The one exception is a page's JSON-LD block (`application/ld+json`), which is data that browsers never run.
 * **Discoverable:** each site has its own `robots.txt` and `sitemap.xml`, and each page a canonical URL, Open Graph tags with an image, and JSON-LD.
 * **No third-party requests:** no external fonts, scripts, analytics or images. The one exception is Cloudflare Web Analytics, which Cloudflare injects (cookieless) and the CSP allows: `static.cloudflareinsights.com` for the beacon script, `cloudflareinsights.com` for its reports.
+* **Images in `/_shared/`:** pages reference images from `public/_shared/` only. Those requests skip the Worker (free, and not counted towards the Free plan's daily limit) and browsers cache them for a day.
 * **Sites stay separate:** a page only links to another site by its full `https://<tool>.hononeko.app/` URL. Shared files live in `public/_shared/`, the only path served on every host.
 * **Accurate copy:** what a page says about a tool must match that tool's README. Check it when the tool changes.
 * **Accessible:** real headings, alt text on images, visible focus, and it works at 320px wide and with reduced motion.
@@ -40,7 +41,8 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 ├── .githooks/commit-msg  # Conventional Commits check
 ├── .github/workflows/    # pr and deploy (main), both running validate
 ├── public/
-│   ├── _shared/          # theme.css, logo.webp + icons, ridge-*.svg, site.js, 404.html
+│   ├── _headers          # browser caching for /_shared/
+│   ├── _shared/          # theme.css, logo.webp + icons, ridge-*.svg, screenshots/, site.js, 404.html
 │   ├── hub/              # hononeko.app
 │   ├── sshx/             # sshx.hononeko.app
 │   └── doppel/           # doppel.hononeko.app
