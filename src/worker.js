@@ -1,6 +1,8 @@
 // Serves every hononeko.app site from one set of static assets.
 // The first label of the hostname picks the site's folder in public/ (sshx.hononeko.app → public/sshx/);
-// the apex and any unknown host get the hub. /_shared/ (theme, logo, scripts) is the same on every host.
+// the apex and any unknown host get the hub. /_shared/ (theme, logo, scripts) is the same on every host, and is
+// normally served without the Worker (run_worker_first in wrangler.jsonc); it's passed through here too, so the
+// Worker stays correct if that changes.
 
 export const SITES = new Set(["sshx", "doppel"]);
 const HUB = "hub";
