@@ -106,6 +106,13 @@ describe("site layout", () => {
     }
   });
 
+  test("shared files skip the Worker, and everything else runs it first", () => {
+    const config = readFileSync("wrangler.jsonc", "utf8");
+    const match = config.match(/"run_worker_first":\s*(\[[^\]]*\])/);
+    expect(match).not.toBeNull();
+    expect(JSON.parse(match[1]).sort()).toEqual(["!/_shared/*", "/*"]);
+  });
+
   test("pages use no inline scripts or styles, which the CSP blocks", () => {
     for (const site of [...SITES, "hub"]) {
       const html = readFileSync(`public/${site}/index.html`, "utf8");
