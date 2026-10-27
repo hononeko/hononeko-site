@@ -74,7 +74,12 @@ describe("fetch", () => {
 
   test("sets security headers", async () => {
     const res = await get("https://hononeko.app/", fakeAssets({ "/hub/": { body: "hub" } }));
-    expect(res.headers.get("Content-Security-Policy")).toContain("default-src 'self'");
+    const csp = res.headers.get("Content-Security-Policy");
+    expect(csp).toContain("default-src 'self'");
+    // Cloudflare Web Analytics, and nothing else from outside the site.
+    expect(csp).toContain("script-src 'self' https://static.cloudflareinsights.com;");
+    expect(csp).toContain("connect-src 'self' https://cloudflareinsights.com;");
+    expect(csp).not.toContain("unsafe-inline");
     expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
   });
 
