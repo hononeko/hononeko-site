@@ -20,7 +20,8 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 
 * **One theme:** colors, fonts and components come from `public/_shared/theme.css`. Pages add no colors of their own; a new color is a token on `:root`, with a dark-mode value in both dark blocks.
 * **Tabby and pine:** orange (`--tabby`) is the accent, pine green (`--pine`) the structure. Keep the logo, the dusk sky and the spruce ridges on every page.
-* **No inline scripts or styles:** the Worker's Content-Security-Policy only allows files from the site itself. Scripts go in `public/_shared/site.js`, styles in `theme.css`.
+* **No inline scripts or styles:** the Worker's Content-Security-Policy only allows files from the site itself. Scripts go in `public/_shared/site.js`, styles in `theme.css`. The one exception is a page's JSON-LD block (`application/ld+json`), which is data that browsers never run.
+* **Discoverable:** each site has its own `robots.txt` and `sitemap.xml`, and each page a canonical URL, Open Graph tags with an image, and JSON-LD.
 * **No third-party requests:** no external fonts, scripts, analytics or images.
 * **Sites stay separate:** a page only links to another site by its full `https://<tool>.hononeko.app/` URL. Shared files live in `public/_shared/`, the only path served on every host.
 * **Accurate copy:** what a page says about a tool must match that tool's README. Check it when the tool changes.

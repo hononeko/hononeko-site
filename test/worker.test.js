@@ -116,8 +116,43 @@ describe("site layout", () => {
   test("pages use no inline scripts or styles, which the CSP blocks", () => {
     for (const site of [...SITES, "hub"]) {
       const html = readFileSync(`public/${site}/index.html`, "utf8");
-      expect(html).not.toMatch(/<script(?![^>]*\bsrc=)[^>]*>/);
+      // JSON-LD is data, not script: browsers never run it, so the CSP doesn't apply.
+      expect(html).not.toMatch(/<script(?![^>]*\b(?:src=|type="application\/ld\+json"))[^>]*>/);
       expect(html).not.toMatch(/<style|\sstyle="/);
     }
   });
+});
+
+describe("discovery", () => {
+  const hostOf = (site) => (site === "hub" ? "hononeko.app" : `${site}.hononeko.app`);
+
+  for (const site of [...SITES, "hub"]) {
+    const host = hostOf(site);
+
+    test(`${host} has a robots.txt pointing at its sitemap, which lists the page`, () => {
+      const robots = readFileSync(`public/${site}/robots.txt`, "utf8");
+      expect(robots).toContain(`Sitemap: https://${host}/sitemap.xml`);
+      expect(robots).not.toMatch(/^Disallow:\s*\/\s*$/m);
+      expect(readFileSync(`public/${site}/sitemap.xml`, "utf8")).toContain(`<loc>https://${host}/</loc>`);
+    });
+
+    test(`${host} declares its canonical URL, a preview image and valid JSON-LD`, () => {
+      const html = readFileSync(`public/${site}/index.html`, "utf8");
+      expect(html).toContain(`<link rel="canonical" href="https://${host}/">`);
+      expect(html).toContain(`<meta property="og:url" content="https://${host}/">`);
+
+      const image = html.match(/<meta property="og:image" content="([^"]+)">/)?.[1];
+      expect(image).toBeDefined();
+      const { hostname, pathname } = new URL(image);
+      expect(hostname).toBe(host);
+      const file = pathname.startsWith("/_shared/") ? `public${pathname}` : `public/${site}${pathname}`;
+      expect(existsSync(file), file).toBe(true);
+
+      const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+      expect(blocks.length).toBe(1);
+      const data = JSON.parse(blocks[0][1]);
+      expect(data["@context"]).toBe("https://schema.org");
+      expect(data.url).toBe(`https://${host}/`);
+    });
+  }
 });
