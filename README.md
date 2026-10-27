@@ -19,12 +19,15 @@ Everything lives in `public/_shared/`:
 * `logo.webp`: an orange tabby in front of forested mountains, cut to a circle with a transparent background. `favicon-32.png` and `apple-touch-icon.png` (on pine) are made from it.
 * `theme.css`: tabby orange (`#e07a2c`) and pine green (`#1f4d3a`) on cream, with a dusk palette for dark mode. Every color is a token on `:root`.
 * `ridge-*.svg`: the mountain and spruce layers along the bottom of each hero, used as CSS masks, so their colors come from the theme.
+* `screenshots/`: each tool page's screenshot, also its link preview image.
+
+Files in `_shared/` skip the Worker, and `public/_headers` lets browsers cache them for a day. Pages always revalidate, so a deploy shows up straight away; a changed shared file can take a day to reach a returning visitor.
 
 A new page should reuse the hero, `.card`, `.grid`, `.install` and `pre.term` blocks of an existing one rather than add styles.
 
 ## Adding a tool
 
-1. Add `public/<tool>/index.html`, starting from `public/sshx/index.html`, and any images it uses. Copy `robots.txt` and `sitemap.xml` from `public/sshx/` and change the host in each; update the page's canonical URL, Open Graph tags and JSON-LD the same way.
+1. Add `public/<tool>/index.html`, starting from `public/sshx/index.html`, and put its images in `public/_shared/` (screenshots in `screenshots/<tool>.png`). Copy `robots.txt` and `sitemap.xml` from `public/sshx/` and change the host in each; update the page's canonical URL, Open Graph tags and JSON-LD the same way.
 2. Add the tool to `SITES` in `src/worker.js`.
 3. Add `<tool>.hononeko.app` to `routes` in `wrangler.jsonc`.
 4. Add a card to `public/hub/index.html` and a link in the other pages' footers.

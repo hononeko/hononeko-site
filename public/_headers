@@ -1,0 +1,6 @@
+# Applies to static assets served without the Worker (/_shared/, see run_worker_first in wrangler.jsonc); pages
+# keep the default (max-age=0, must-revalidate) so a deploy shows up straight away.
+# Shared files aren't fingerprinted, so a change can take a day to reach a returning visitor: they get the cached
+# copy for a day, then the old one once more while the browser fetches the new one in the background.
+/_shared/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
