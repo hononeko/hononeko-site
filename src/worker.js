@@ -8,10 +8,15 @@ export const SITES = new Set(["sshx", "doppel"]);
 const HUB = "hub";
 const SHARED = "/_shared/";
 
+// Cloudflare Web Analytics injects its beacon from static.cloudflareinsights.com; with automatic setup it reports to
+// this host's /cdn-cgi/rum, and cloudflareinsights.com covers a manually installed beacon.
+const ANALYTICS_SCRIPT = "https://static.cloudflareinsights.com";
+const ANALYTICS_REPORT = "https://cloudflareinsights.com";
+
 const SECURITY_HEADERS = {
   "Content-Security-Policy":
-    "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; " +
-    "base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    `default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self' ${ANALYTICS_SCRIPT}; ` +
+    `connect-src 'self' ${ANALYTICS_REPORT}; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
