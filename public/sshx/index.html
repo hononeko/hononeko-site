@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sshx · SSH host manager</title>
+  <meta name="description" content="sshx is a terminal UI and wizard for your SSH hosts: search, connect, add and edit hosts without hand-editing ~/.ssh/config.">
+  <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="sshx">
+  <meta property="og:description" content="Your SSH hosts, without hand-editing ~/.ssh/config.">
+  <meta property="og:image" content="https://sshx.hononeko.app/screenshot.png">
+  <link rel="icon" href="/_shared/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/_shared/apple-touch-icon.png">
+  <link rel="stylesheet" href="/_shared/theme.css">
+  <script src="/_shared/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Main">
+        <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="40" height="40"><span>hononeko</span></a>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="https://github.com/vehkiya/sshx/releases/latest">Releases</a></li>
+          <li><a href="https://github.com/vehkiya/sshx">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-body">
+        <span class="eyebrow">SSH host manager</span>
+        <h1>sshx</h1>
+        <p class="lede">Your SSH hosts, without hand-editing <code>~/.ssh/config</code>. Search and connect from a terminal UI, add hosts with a guided wizard, and keep every comment and directive you wrote.</p>
+
+        <div class="install">
+          <code id="install-cmd">go install github.com/vehkiya/sshx@latest</code>
+          <button class="copy" type="button" data-copy="#install-cmd">Copy</button>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/vehkiya/sshx/releases/latest">Download a release</a>
+          <a class="btn btn-ghost" href="https://github.com/vehkiya/sshx#-installation">Other ways to install</a>
+        </div>
+      </div>
+    </div>
+    <div class="ridges" aria-hidden="true"><span class="far"></span><span class="near"></span><span class="front"></span></div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <figure class="shot">
+        <img src="/screenshot.png" width="1362" height="715" alt="The sshx host browser: a host list on the left, and the selected host's target, port, key and quick actions on the right.">
+      </figure>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Everything ssh knows, one keypress away</h2>
+          <p>sshx reads the config you already have, includes and all, and changes only what you ask it to.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Search and connect</h3>
+            <p>Fuzzy-filter every alias, hostname and note. The inspector shows the target, port, key and jump host, and <kbd>Enter</kbd> connects.</p>
+          </article>
+          <article class="card">
+            <h3>A wizard for new hosts</h3>
+            <p><code>sshx add</code> walks you through a host: pick a key or generate an Ed25519 one, preview the config block, then copy the key to the server.</p>
+          </article>
+          <article class="card">
+            <h3>Edits in place</h3>
+            <p>Only the directives you change are rewritten. Comments, wildcard patterns and directives sshx doesn't manage stay where they were.</p>
+          </article>
+          <article class="card">
+            <h3>Safe writes</h3>
+            <p>Atomic writes with <code>0600</code> permissions, a hidden backup of the previous file, and symlinked dotfiles written through, not replaced.</p>
+          </article>
+          <article class="card">
+            <h3>Straight from the shell</h3>
+            <p><code>sshx prod uptime</code>, <code>sshx ls --json</code>, and tab completion for bash, zsh and fish, with your most recent hosts first.</p>
+          </article>
+          <article class="card">
+            <h3>Signed updates</h3>
+            <p><code>sshx update</code> only installs a release whose checksums are signed with the sshx release key.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-start">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Quick start</h2>
+          <p>A single static binary for macOS, Linux and Windows. No runtime dependencies.</p>
+        </div>
+<pre class="term"><span class="p">$ </span>sshx                                  <span class="c"># browse your hosts</span>
+<span class="p">$ </span>sshx add admin@10.0.0.5:2202 backup   <span class="c"># add one, with the wizard filled in</span>
+<span class="p">$ </span>sshx backup                           <span class="c"># connect</span>
+<span class="p">$ </span>sshx backup uptime                    <span class="c"># run a command; ssh's exit code passes through</span>
+<span class="p">$ </span>source &lt;(sshx completion zsh)         <span class="c"># tab-complete your hosts</span></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="32" height="32"><span>hononeko</span></a>
+      <nav aria-label="Footer">
+        <a href="https://doppel.hononeko.app/">doppel</a>
+        <a href="https://github.com/vehkiya/sshx">Source</a>
+        <a href="https://github.com/vehkiya/sshx/blob/main/LICENSE">MIT License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

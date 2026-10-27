@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>doppel · Git accounts per folder</title>
+  <meta name="description" content="doppel manages several Git accounts on one machine: each folder commits, pushes and signs as the right account, using plain Git config.">
+  <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="doppel">
+  <meta property="og:description" content="Every repo commits as the right Git account.">
+  <meta property="og:image" content="https://doppel.hononeko.app/screenshot.png">
+  <link rel="icon" href="/_shared/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/_shared/apple-touch-icon.png">
+  <link rel="stylesheet" href="/_shared/theme.css">
+  <script src="/_shared/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Main">
+        <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="40" height="40"><span>hononeko</span></a>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="https://github.com/vehkiya/doppel/releases/latest">Releases</a></li>
+          <li><a href="https://github.com/vehkiya/doppel">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-body">
+        <span class="eyebrow">Git accounts per folder</span>
+        <h1>doppel</h1>
+        <p class="lede">Every repo commits as the right Git account. Repos under <code>~/projects/work</code> commit, push and sign as your work identity; everything else stays personal. You never switch anything by hand.</p>
+
+        <div class="install">
+          <code id="install-cmd">go install github.com/vehkiya/doppel@latest</code>
+          <button class="copy" type="button" data-copy="#install-cmd">Copy</button>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/vehkiya/doppel/releases/latest">Download a release</a>
+          <a class="btn btn-ghost" href="https://github.com/vehkiya/doppel#-installation">Other ways to install</a>
+        </div>
+      </div>
+    </div>
+    <div class="ridges" aria-hidden="true"><span class="far"></span><span class="near"></span><span class="front"></span></div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <figure class="shot">
+        <img src="/screenshot.png" width="1024" height="579" alt="The doppel account browser: two accounts on the left, and the default account's identity, keys and signing on the right.">
+      </figure>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Plain Git config, applied by Git</h2>
+          <p>doppel doesn't wrap <code>git</code> and doesn't need to be running. It writes the config, and Git does the rest.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Accounts per folder</h3>
+            <p>Each account has a commit identity, an SSH key for pushing, an optional signing key, and the folders it applies to. The most specific folder wins.</p>
+          </article>
+          <article class="card">
+            <h3>The right key, every time</h3>
+            <p>Each account pushes with its own key and <code>IdentitiesOnly=yes</code>, so ssh-agent can't log you in to GitHub as the wrong account.</p>
+          </article>
+          <article class="card">
+            <h3>Signatures that verify</h3>
+            <p>SSH signing per account, with a managed block in <code>allowed_signers</code> so <code>git log --show-signature</code> shows a good signature.</p>
+          </article>
+          <article class="card">
+            <h3>Keys handled for you</h3>
+            <p>Pick a key or generate one, or use an agent such as 1Password or Bitwarden. <code>doppel upload</code> adds them to the right GitHub user.</p>
+          </article>
+          <article class="card">
+            <h3>It explains itself</h3>
+            <p><code>doppel whoami</code> says which account applies and why, <code>test</code> logs in and signs, and <code>doctor</code> finds what could go wrong.</p>
+          </article>
+          <article class="card">
+            <h3>Careful with your files</h3>
+            <p><code>--dry-run</code> shows every change as a diff, every write is atomic with a backup, and <code>doppel uninstall</code> takes it all back out.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-start">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Quick start</h2>
+          <p>Linux and macOS. Needs Git 2.34+ and OpenSSH 8.2+; <code>gh</code> is optional, for uploads.</p>
+        </div>
+<pre class="term"><span class="p">$ </span>doppel add            <span class="c"># a wizard: identity, hosts, folders, keys, signing</span>
+<span class="p">$ </span>doppel                <span class="c"># the account browser</span>
+<span class="p">$ </span>doppel whoami         <span class="c"># which account applies here, and why</span>
+<span class="p">$ </span>doppel test           <span class="c"># log in to each host and sign a test message</span>
+<span class="p">$ </span>doppel upload work    <span class="c"># add work's keys to its GitHub user</span></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="32" height="32"><span>hononeko</span></a>
+      <nav aria-label="Footer">
+        <a href="https://sshx.hononeko.app/">sshx</a>
+        <a href="https://github.com/vehkiya/doppel">Source</a>
+        <a href="https://github.com/vehkiya/doppel/blob/main/LICENSE">MIT License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

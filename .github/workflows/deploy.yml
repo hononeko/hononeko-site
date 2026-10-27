@@ -1,0 +1,42 @@
+name: Deploy
+
+# Every push to main deploys the Worker and its custom domains (hononeko.app, sshx.hononeko.app, ...) to Cloudflare.
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Queue rather than cancel: a deploy is never aborted half-way.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+    permissions:
+      contents: read
+
+  deploy:
+    name: Deploy to Cloudflare
+    needs: validate
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+    environment:
+      name: production
+      url: https://hononeko.app
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Bun and dependencies
+        uses: hononeko/actions/bun-setup@v1
+
+      - name: Deploy
+        run: bun run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

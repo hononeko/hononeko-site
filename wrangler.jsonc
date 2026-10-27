@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hononeko-site",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS",
+    // The Worker maps each hostname to its folder, so it runs before any asset is matched.
+    "run_worker_first": true
+  },
+  // Custom domains: Cloudflare creates the proxied DNS records and certificates on deploy.
+  "routes": [
+    { "pattern": "hononeko.app", "custom_domain": true },
+    { "pattern": "sshx.hononeko.app", "custom_domain": true },
+    { "pattern": "doppel.hononeko.app", "custom_domain": true }
+  ],
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,697 @@
+/* hononeko theme: tabby orange on spruce green, shared by every hononeko.app page. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Palette */
+  --tabby: #e07a2c;
+  --tabby-deep: #b4501a;
+  --tabby-soft: #f4a259;
+  --pine: #1f4d3a;
+  --pine-deep: #12301f;
+  --pine-mist: #8fb09c;
+  --cream: #fbf6ee;
+
+  /* Light */
+  --bg: var(--cream);
+  --surface: #ffffff;
+  --surface-2: #f3ebdd;
+  --text: #16302a;
+  --muted: #4d6359;
+  --border: #e4d9c7;
+  --accent: var(--tabby);
+  --accent-text: var(--tabby-deep);
+  --on-accent: #ffffff;
+  --sky-top: #f4a259;
+  --sky-bottom: #fce3c2;
+  --ridge-far: #8fb09c;
+  --ridge-near: #2a5a43;
+  --sun: #fff1dc;
+  --sun-opacity: 0.55;
+  --code-bg: #12261d;
+  --code-text: #f1e8d9;
+  --code-muted: #8fb09c;
+  --shadow: 0 1px 2px rgb(18 48 31 / 6%), 0 8px 24px rgb(18 48 31 / 8%);
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-display: ui-rounded, "SF Pro Rounded", "Nunito", "Varela Round", var(--font-sans);
+  --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --radius: 14px;
+  --page: 1080px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1f18;
+    --surface: #15291f;
+    --surface-2: #1c3328;
+    --text: #f1e8d9;
+    --muted: #a9bbaf;
+    --border: #2a4436;
+    --accent: #f08a3c;
+    --accent-text: #f4a259;
+    --on-accent: #1a0e05;
+    --sky-top: #3b2a22;
+    --sky-bottom: #7a4a2a;
+    --ridge-far: #2f4a3c;
+    --ridge-near: #173527;
+    --sun: #f4b77a;
+    --sun-opacity: 0.3;
+    --code-bg: #0a1712;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1f18;
+  --surface: #15291f;
+  --surface-2: #1c3328;
+  --text: #f1e8d9;
+  --muted: #a9bbaf;
+  --border: #2a4436;
+  --accent: #f08a3c;
+  --accent-text: #f4a259;
+  --on-accent: #1a0e05;
+  --sky-top: #3b2a22;
+  --sky-bottom: #7a4a2a;
+  --ridge-far: #2f4a3c;
+  --ridge-near: #173527;
+  --sun: #f4b77a;
+  --sun-opacity: 0.3;
+  --code-bg: #0a1712;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+}
+
+/* Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.65 var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent-text);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 4.25rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+  font-weight: 750;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+
+.wrap {
+  width: min(var(--page), 100% - 32px);
+  margin-inline: auto;
+}
+
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  background: var(--surface);
+  padding: 8px 14px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.skip:focus {
+  top: 16px;
+}
+
+/* Header & hero: a dusk sky over the spruce ridges */
+
+.hero {
+  position: relative;
+  background: linear-gradient(var(--sky-top), var(--sky-bottom));
+  padding-bottom: clamp(120px, 16vw, 200px);
+  isolation: isolate;
+}
+
+.hero::before {
+  /* the low sun behind the range */
+  content: "";
+  position: absolute;
+  right: 12%;
+  bottom: clamp(60px, 7vw, 100px);
+  width: clamp(90px, 14vw, 170px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--sun);
+  opacity: var(--sun-opacity);
+  z-index: -2;
+}
+
+.ridges {
+  position: absolute;
+  inset: auto 0 0;
+  height: 200px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ridges span {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: var(--m) bottom left / 1440px 200px repeat-x;
+  mask: var(--m) bottom left / 1440px 200px repeat-x;
+}
+
+.ridges .far {
+  --m: url("/_shared/ridge-far.svg");
+  background: var(--ridge-far);
+}
+
+.ridges .near {
+  --m: url("/_shared/ridge-near.svg");
+  background: var(--ridge-near);
+}
+
+.ridges .front {
+  --m: url("/_shared/ridge-front.svg");
+  background: var(--bg);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 20px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #1b1a17;
+  text-decoration: none;
+  font: 800 1.2rem/1 var(--font-display);
+}
+
+.brand img {
+  width: 40px;
+  height: 40px;
+}
+
+/* A pine ring keeps the round logo apart from the orange sky. */
+.brand img,
+.hub-logo {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--pine-deep);
+}
+
+.nav ul {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav ul a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #1b1a17;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.nav ul a:hover {
+  background: rgb(255 255 255 / 35%);
+}
+
+.hero-body {
+  padding-block: clamp(24px, 6vw, 64px) 0;
+  max-width: 720px;
+  color: #1b1a17;
+}
+
+.hero-body .lede {
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  color: #3a2f25;
+  max-width: 60ch;
+}
+
+.eyebrow {
+  display: inline-block;
+  font: 700 0.8rem/1 var(--font-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pine);
+  background: rgb(255 255 255 / 55%);
+  padding: 7px 11px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+/* In dark mode the sky is dusk-brown, so hero text goes light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :is(.brand, .nav ul a, .hero-body) {
+    color: #fbf1e3;
+  }
+  :root:not([data-theme="light"]) .hero-body .lede {
+    color: #ead9c5;
+  }
+  :root:not([data-theme="light"]) .eyebrow {
+    color: #fbf1e3;
+    background: rgb(0 0 0 / 22%);
+  }
+  :root:not([data-theme="light"]) .nav ul a:hover {
+    background: rgb(255 255 255 / 10%);
+  }
+}
+
+:root[data-theme="dark"] :is(.brand, .nav ul a, .hero-body) {
+  color: #fbf1e3;
+}
+
+:root[data-theme="dark"] .hero-body .lede {
+  color: #ead9c5;
+}
+
+:root[data-theme="dark"] .eyebrow {
+  color: #fbf1e3;
+  background: rgb(0 0 0 / 22%);
+}
+
+/* Buttons & install box */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--pine);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--pine-deep);
+}
+
+.btn-ghost {
+  border-color: currentColor;
+  color: inherit;
+}
+
+.btn-ghost:hover {
+  background: rgb(255 255 255 / 20%);
+}
+
+.install {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  margin-top: 28px;
+  padding: 8px 8px 8px 18px;
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+.install code {
+  flex: 1;
+  background: none;
+  border-radius: 0;
+  color: inherit;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-block: 6px;
+  scrollbar-width: thin;
+}
+
+.install code::before {
+  content: "$ ";
+  color: var(--tabby-soft);
+  user-select: none;
+}
+
+.copy {
+  flex: none;
+  font: 600 0.85rem/1 var(--font-sans);
+  color: var(--code-text);
+  background: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: rgb(255 255 255 / 14%);
+}
+
+.copy[data-copied] {
+  color: var(--code-bg);
+  background: var(--tabby-soft);
+  border-color: var(--tabby-soft);
+}
+
+/* Sections */
+
+main section {
+  padding-block: clamp(40px, 7vw, 80px);
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.section-head p {
+  color: var(--muted);
+}
+
+.shot {
+  margin: clamp(-64px, -4vw, -24px) auto 0;
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--code-bg);
+  box-shadow: var(--shadow), 0 0 0 1px var(--border);
+}
+
+.shot::before {
+  /* terminal window chrome */
+  content: "";
+  display: block;
+  height: 30px;
+  background:
+    radial-gradient(circle at 18px 15px, #ff6159 5px, transparent 5.5px),
+    radial-gradient(circle at 36px 15px, #ffbd2e 5px, transparent 5.5px),
+    radial-gradient(circle at 54px 15px, #28c941 5px, transparent 5.5px),
+    #1a2e24;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card h3::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+.card p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+pre.term {
+  margin: 0;
+  padding: 20px 22px;
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  line-height: 1.7;
+  box-shadow: var(--shadow);
+}
+
+pre.term .c {
+  color: var(--code-muted);
+}
+
+pre.term .p {
+  color: var(--tabby-soft);
+  user-select: none;
+}
+
+/* Hub */
+
+.hub-hero {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.hub-hero .lede {
+  margin-inline: auto;
+}
+
+.hub-logo {
+  width: clamp(112px, 18vw, 156px);
+  margin: 0 auto 20px;
+  box-shadow:
+    0 0 0 4px var(--pine-deep),
+    0 12px 28px rgb(18 48 31 / 30%);
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.tool:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.tool h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.tool h3::before {
+  display: none;
+}
+
+.tool .go {
+  margin-top: auto;
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.tool pre.term {
+  font-size: 0.82rem;
+  padding: 14px 16px;
+  box-shadow: none;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--pine);
+  background: color-mix(in srgb, var(--pine-mist) 30%, transparent);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tags li {
+    color: #cfe0d5;
+  }
+}
+
+:root[data-theme="dark"] .tags li {
+  color: #cfe0d5;
+}
+
+/* Footer: the forest floor */
+
+.foot {
+  background: var(--pine-deep);
+  color: #cfe0d5;
+  padding-block: 36px;
+  font-size: 0.95rem;
+}
+
+.foot .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.foot .brand {
+  color: #fbf1e3;
+  font-size: 1.05rem;
+}
+
+.foot .brand img {
+  width: 32px;
+  height: 32px;
+}
+
+.foot a {
+  color: var(--tabby-soft);
+}
+
+.foot nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+@media (max-width: 560px) {
+  .nav ul a {
+    padding: 8px;
+  }
+  .brand span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .btn,
+  .tool {
+    transition: none;
+  }
+  .btn:hover,
+  .tool:hover {
+    transform: none;
+  }
+}
+
+/* On the dusk sky, a pine button disappears; use tabby orange instead. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
+:root[data-theme="dark"] .btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}

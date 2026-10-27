@@ -1,0 +1,40 @@
+name: Validate
+
+# Lints the workflows and the Worker, tests its routing with coverage, and builds the deploy bundle without uploading
+# it. Shared by pr.yml and deploy.yml.
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    name: Lint, Test & Build
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Lint workflows and actions
+        uses: hononeko/actions/lint-actions@v1
+
+      - name: Lint JS
+        uses: hononeko/actions/lint-js@v1
+
+      - name: Set up Bun and dependencies
+        uses: hononeko/actions/bun-setup@v1
+
+      - name: Run tests with coverage
+        run: bun run test:coverage
+
+      # Overall coverage is reported; a pull request's changed lines must be 80% covered.
+      - name: Coverage
+        uses: hononeko/actions/coverage@v1
+        with:
+          files: coverage/lcov.info
+          min-changed-coverage: "80"
+
+      - name: Build (dry-run deploy)
+        run: bun run check
