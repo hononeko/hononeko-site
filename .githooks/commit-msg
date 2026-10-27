@@ -1,0 +1,26 @@
+#!/bin/sh
+# Rejects commit messages that don't follow Conventional Commits.
+# Enable with: git config core.hooksPath .githooks
+
+subject=$(grep -v '^#' "$1" | sed '/^[[:space:]]*$/d' | head -n 1)
+
+# Allow git-generated messages.
+case "$subject" in
+  "Merge "* | "Revert \""* | "fixup! "* | "squash! "* | "amend! "*) exit 0 ;;
+esac
+
+types='build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test'
+if printf '%s\n' "$subject" | grep -Eq "^($types)(\([a-zA-Z0-9._/-]+\))?!?: [^[:space:]].*"; then
+  exit 0
+fi
+
+cat >&2 <<EOF
+Commit message does not follow Conventional Commits:
+
+  $subject
+
+Expected: <type>[(scope)][!]: <description>
+Types:    $(printf '%s' "$types" | sed 's/|/, /g')
+See https://www.conventionalcommits.org/
+EOF
+exit 1
