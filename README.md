@@ -5,8 +5,8 @@ Landing pages for hononeko tools, served by one Cloudflare Worker:
 | Host | Page |
 | :--- | :--- |
 | [hononeko.app](https://hononeko.app) | The hub, listing every tool |
-| [sshx.hononeko.app](https://sshx.hononeko.app) | [sshx](https://github.com/vehkiya/sshx) |
-| [doppel.hononeko.app](https://doppel.hononeko.app) | [doppel](https://github.com/vehkiya/doppel) |
+| [sshx.hononeko.app](https://sshx.hononeko.app) | [sshx](https://github.com/hononeko/sshx) |
+| [doppel.hononeko.app](https://doppel.hononeko.app) | [doppel](https://github.com/hononeko/doppel) |
 
 ## How it works
 
