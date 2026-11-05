@@ -45,7 +45,8 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 │   ├── _shared/          # theme.css, logo.webp + icons, ridge-*.svg, screenshots/, site.js, 404.html
 │   ├── hub/              # hononeko.app
 │   ├── sshx/             # sshx.hononeko.app
-│   └── doppel/           # doppel.hononeko.app
+│   ├── doppel/           # doppel.hononeko.app
+│   └── koshin/           # koshin.hononeko.app
 ├── src/worker.js         # hostname → site folder, security headers
 ├── test/                 # routing and layout tests
 └── wrangler.jsonc        # Worker, assets and custom domains

@@ -25,6 +25,7 @@ describe("siteFor", () => {
     ["hononeko.app", "hub"],
     ["sshx.hononeko.app", "sshx"],
     ["doppel.hononeko.app", "doppel"],
+    ["koshin.hononeko.app", "koshin"],
     ["sshx.localhost", "sshx"],
     ["localhost", "hub"],
     ["unknown.hononeko.app", "hub"],
