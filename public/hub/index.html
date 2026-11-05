@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>hononeko</title>
-  <meta name="description" content="Homelab and everyday tools from hononeko: command-line apps like sshx and doppel, container images, and more.">
+  <meta name="description" content="Homelab and everyday tools from hononeko: command-line apps like sshx and doppel, the koshin Renovate orchestrator, container images, and more.">
   <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="hononeko">
@@ -81,6 +81,14 @@
 <span class="p">$ </span>doppel whoami</pre>
             <span class="go">doppel.hononeko.app →</span>
           </a>
+          <a class="card tool" href="https://koshin.hononeko.app/">
+            <h3>koshin</h3>
+            <ul class="tags"><li>Renovate</li><li>Kubernetes</li><li>Kotlin</li></ul>
+            <p>Runs Renovate on Kubernetes when webhooks say there's work, starting worker Jobs on demand and none while the queue is empty.</p>
+<pre class="term"><span class="p">$ </span>C=oci://ghcr.io/hononeko/charts
+<span class="p">$ </span>helm install koshin $C/koshin</pre>
+            <span class="go">koshin.hononeko.app →</span>
+          </a>
         </div>
       </div>
     </section>
@@ -92,6 +100,7 @@
       <nav aria-label="Footer">
         <a href="https://sshx.hononeko.app/">sshx</a>
         <a href="https://doppel.hononeko.app/">doppel</a>
+        <a href="https://koshin.hononeko.app/">koshin</a>
         <a href="https://github.com/hononeko">GitHub</a>
       </nav>
     </div>

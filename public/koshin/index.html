@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>koshin · Renovate orchestrator</title>
+  <meta name="description" content="koshin runs Renovate on Kubernetes when there's work: a proxy coalesces GitHub and GitLab webhooks and starts worker Jobs on demand, without an autoscaler.">
+  <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="koshin">
+  <meta property="og:description" content="Renovate on Kubernetes, scaled to zero.">
+  <meta property="og:image" content="https://koshin.hononeko.app/_shared/og-hub.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hononeko">
+  <meta property="og:url" content="https://koshin.hononeko.app/">
+  <meta property="og:image:alt" content="The hononeko logo, an orange tabby, above the name and a forest of spruces.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://koshin.hononeko.app/">
+  <link rel="icon" href="/_shared/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/_shared/apple-touch-icon.png">
+  <link rel="stylesheet" href="/_shared/theme.css">
+  <script src="/_shared/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "koshin",
+    "description": "A stateless, scale-to-zero Renovate orchestrator for Kubernetes: a proxy coalesces GitHub and GitLab webhooks and starts worker Jobs on demand, without an autoscaler.",
+    "url": "https://koshin.hononeko.app/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Kubernetes",
+    "softwareRequirements": "Kubernetes 1.30+",
+    "downloadUrl": "https://github.com/hononeko/koshin/releases/latest",
+    "license": "https://opensource.org/licenses/Apache-2.0",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "hononeko",
+      "url": "https://hononeko.app/",
+      "logo": "https://hononeko.app/_shared/logo.webp"
+    },
+    "sameAs": [
+      "https://github.com/hononeko/koshin"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Main">
+        <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="40" height="40"><span>hononeko</span></a>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="https://github.com/hononeko/koshin#documentation">Docs</a></li>
+          <li><a href="https://github.com/hononeko/koshin">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-body">
+        <span class="eyebrow">Renovate orchestrator</span>
+        <h1>koshin</h1>
+        <p class="lede">Renovate on Kubernetes, run when there's work to do. A proxy coalesces GitHub and GitLab webhooks and starts worker Jobs on demand, so nothing runs while the queue is empty, and no autoscaler is needed.</p>
+
+        <div class="install">
+          <code id="install-cmd">helm install koshin oci://ghcr.io/hononeko/charts/koshin -n koshin --create-namespace --set proxy.existingSecret=koshin-proxy --set worker.existingSecret=koshin-worker</code>
+          <button class="copy" type="button" data-copy="#install-cmd">Copy</button>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/hononeko/koshin/blob/main/charts/koshin/README.md">Install with Helm</a>
+          <a class="btn btn-ghost" href="https://github.com/hononeko/koshin/blob/main/docs/architecture.md">How it works</a>
+        </div>
+      </div>
+    </div>
+    <div class="ridges" aria-hidden="true"><span class="far"></span><span class="near"></span><span class="front"></span></div>
+  </header>
+
+  <main id="main">
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Renovate when there's work, and only then</h2>
+          <p>A stateless proxy and workers on NATS JetStream and Valkey. Workers run back to back while there are jobs, and exit once idle.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Coalesced webhooks</h3>
+            <p>A webhook for a repository that's already queued is dropped. One that arrives mid-run marks the repository for a single follow-up run.</p>
+          </article>
+          <article class="card">
+            <h3>Scale to zero</h3>
+            <p>The proxy starts workers as Kubernetes <code>Job</code>s from a <code>PodTemplate</code>. With an empty queue no worker runs, and there's no autoscaler to install.</p>
+          </article>
+          <article class="card">
+            <h3>One App, many tenants</h3>
+            <p>Serve many accounts from one public GitHub App, with an allow-list of the accounts it runs for. GitLab works with a token.</p>
+          </article>
+          <article class="card">
+            <h3>Rate limits per credential</h3>
+            <p>Runs are capped per App installation or platform token, and only the scope that hit a rate limit backs off. Everyone else keeps going.</p>
+          </article>
+          <article class="card">
+            <h3>Encrypted registry credentials</h3>
+            <p>Tenants keep private registry secrets in their own Renovate config, encrypted with koshin's key and decryptable only for their repositories.</p>
+          </article>
+          <article class="card">
+            <h3>Clean between runs</h3>
+            <p>Renovate runs in a separate, secret-free container from the upstream image. Caches are emptied, leftover processes killed and tokens scrubbed from logs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-start">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Quick start</h2>
+          <p>Kubernetes 1.30+, with no operator or autoscaler. The <code>minimal</code> profile runs one NATS and Valkey; <code>ha</code> survives losing a node.</p>
+        </div>
+<pre class="term"><span class="p">$ </span>kubectl create namespace koshin
+<span class="p">$ </span>kubectl -n koshin create secret generic koshin-proxy \
+    --from-literal=GITHUB_WEBHOOK_SECRET=... \
+    --from-literal=INTERNAL_TRIGGER_TOKEN="$(openssl rand -hex 24)"
+<span class="p">$ </span>kubectl -n koshin create secret generic koshin-worker --from-literal=GITHUB_TOKEN=...
+<span class="p">$ </span>helm install koshin oci://ghcr.io/hononeko/charts/koshin -n koshin \
+    --set proxy.existingSecret=koshin-proxy \
+    --set worker.existingSecret=koshin-worker \
+    --set 'proxy.sweepRepositories={github:my-org/my-repo}'   <span class="c"># re-checked every 6 hours</span></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="32" height="32"><span>hononeko</span></a>
+      <nav aria-label="Footer">
+        <a href="https://sshx.hononeko.app/">sshx</a>
+        <a href="https://doppel.hononeko.app/">doppel</a>
+        <a href="https://github.com/hononeko/koshin">Source</a>
+        <a href="https://github.com/hononeko/koshin/blob/main/LICENSE">Apache-2.0 License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
