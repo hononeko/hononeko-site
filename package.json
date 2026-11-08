@@ -13,7 +13,7 @@
     "test:coverage": "bun test --coverage --coverage-reporter=lcov --coverage-reporter=text"
   },
   "devDependencies": {
-    "wrangler": "4.157.0"
+    "wrangler": "4.158.0"
   },
   "packageManager": "bun@1.4.4"
 }
