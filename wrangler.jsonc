@@ -18,7 +18,8 @@
     { "pattern": "hononeko.app", "custom_domain": true },
     { "pattern": "sshx.hononeko.app", "custom_domain": true },
     { "pattern": "doppel.hononeko.app", "custom_domain": true },
-    { "pattern": "koshin.hononeko.app", "custom_domain": true }
+    { "pattern": "koshin.hononeko.app", "custom_domain": true },
+    { "pattern": "miru.hononeko.app", "custom_domain": true }
   ],
   "observability": { "enabled": true }
 }

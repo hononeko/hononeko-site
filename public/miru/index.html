@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>miru · Media server telemetry</title>
+  <meta name="description" content="miru is a lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA.">
+  <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="miru">
+  <meta property="og:description" content="Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics.">
+  <meta property="og:image" content="https://miru.hononeko.app/_shared/screenshots/miru-web.png">
+  <meta property="og:image:width" content="1440">
+  <meta property="og:image:height" content="978">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hononeko">
+  <meta property="og:url" content="https://miru.hononeko.app/">
+  <meta property="og:image:alt" content="The miru Live Activity desktop dashboard showing active Plex streams, bandwidth, direct play ratio, watch time, and playback trends.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://miru.hononeko.app/">
+  <link rel="icon" href="/_shared/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/_shared/apple-touch-icon.png">
+  <link rel="stylesheet" href="/_shared/theme.css">
+  <script src="/_shared/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "miru",
+    "description": "Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA.",
+    "url": "https://miru.hononeko.app/",
+    "image": "https://miru.hononeko.app/_shared/screenshots/miru-web.png",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Linux, Kubernetes, Docker",
+    "softwareRequirements": "Plex Media Server",
+    "downloadUrl": "https://github.com/hononeko/miru/releases/latest",
+    "license": "https://opensource.org/licenses/Apache-2.0",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "hononeko",
+      "url": "https://hononeko.app/",
+      "logo": "https://hononeko.app/_shared/logo.webp"
+    },
+    "sameAs": [
+      "https://github.com/hononeko/miru"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Main">
+        <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="40" height="40"><span>hononeko</span></a>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#quick-start">Quick start</a></li>
+          <li><a href="https://github.com/hononeko/miru">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-body">
+        <span class="eyebrow">Media server telemetry</span>
+        <h1>miru</h1>
+        <p class="lede">Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA backed by SQLite or PostgreSQL.</p>
+
+        <div class="install">
+          <code id="install-cmd">docker run -d -p 8080:8080 -e PLEX_URL=http://plex:32400 -e PLEX_TOKEN=your-token -e AUTH_MODE=none -v miru-data:/data ghcr.io/hononeko/miru:latest</code>
+          <button class="copy" type="button" data-copy="#install-cmd">Copy</button>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/hononeko/miru">View on GitHub</a>
+          <a class="btn btn-ghost" href="https://github.com/hononeko/miru/blob/main/k8s/README.md">Kubernetes guide</a>
+        </div>
+      </div>
+    </div>
+    <div class="ridges" aria-hidden="true"><span class="far"></span><span class="near"></span><span class="front"></span></div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <figure class="shot-app">
+        <img src="/_shared/screenshots/miru-web.png" width="1440" height="978" alt="Miru desktop Live Activity dashboard showing active Plex streams, LAN and WAN bandwidth, 30-day direct play percentage, watch time, live session breakdown, plays per day, and top watched titles.">
+      </figure>
+    </div>
+
+    <section id="mobile">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Installable SvelteKit PWA, dark and light</h2>
+          <p>Live sessions, history, user scoping, and library insights adapt cleanly to mobile screens in both dark and light themes.</p>
+        </div>
+        <div class="shots-mobile">
+          <figure class="shot-card">
+            <img src="/_shared/screenshots/miru-mobile-dark.png" width="389" height="841" alt="Miru mobile PWA dark theme showing Live Activity summary cards and active Plex stream cards.">
+            <figcaption>Mobile PWA · Dark theme</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="/_shared/screenshots/miru-mobile-light.png" width="389" height="841" alt="Miru mobile PWA light theme showing Live Activity summary cards and active Plex stream cards.">
+            <figcaption>Mobile PWA · Light theme</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for Plex, typed end to end</h2>
+          <p>A Kotlin 2.4 / Ktor 3 API with Arrow-kt typed errors and an OpenAPI 3.1 contract, bundling a static SvelteKit 2 + Svelte 5 frontend into one container.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Real-time Plex monitoring</h3>
+            <p>Listens on Plex's WebSocket notification stream with debounced updates and exponential backoff, paired with a fallback polling reconciler and SSE live push.</p>
+          </article>
+          <article class="card">
+            <h3>Playback history &amp; RBAC scoping</h3>
+            <p>Records play sessions with resume-window merging and watch thresholds. Link <code>USER</code> accounts to specific Plex users to scope all views and history.</p>
+          </article>
+          <article class="card">
+            <h3>Library codec &amp; growth analytics</h3>
+            <p>Break down library sections by video codec, resolution, audio format, and item growth over time across movies, TV shows, and episodes.</p>
+          </article>
+          <article class="card">
+            <h3>OIDC, local &amp; API key auth</h3>
+            <p>Run with local HMAC-SHA256 session cookies, OIDC single sign-on (or hybrid mode), and SHA-256 hashed <code>miru_...</code> API keys for automation.</p>
+          </article>
+          <article class="card">
+            <h3>SQLite &amp; PostgreSQL parity</h3>
+            <p>Start immediately with embedded SQLite, or point <code>DB_ENGINE=postgres</code> at PostgreSQL. Both engines share Flyway migrations and Exposed repositories.</p>
+          </article>
+          <article class="card">
+            <h3>Single container, OpenAPI 3.1</h3>
+            <p>Ktor serves the built SvelteKit PWA from <code>/opt/miru/static</code> alongside <code>/healthz</code>, <code>/readyz</code>, and <code>/api/v1/openapi.yaml</code>.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-start">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Quick start</h2>
+          <p>Run the multi-arch container image with SQLite, or deploy to Kubernetes using the Kustomize blueprint in <code>k8s/</code>.</p>
+        </div>
+<pre class="term"><span class="p">$ </span>docker run -d --name miru -p 8080:8080 \
+    -e PLEX_URL=http://host.docker.internal:32400 \
+    -e PLEX_TOKEN=your-plex-token \
+    -e AUTH_SESSION_SECRET="$(openssl rand -hex 32)" \
+    -e MIRU_ADMIN_USERNAME=admin \
+    -e MIRU_ADMIN_PASSWORD=choose-a-strong-password \
+    -v miru-data:/data \
+    ghcr.io/hononeko/miru:latest
+<span class="p">$ </span>curl -fsS http://localhost:8080/readyz   <span class="c"># readiness check + OpenAPI at /api/v1/openapi.yaml</span></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo.webp" alt="" width="32" height="32"><span>hononeko</span></a>
+      <nav aria-label="Footer">
+        <a href="https://sshx.hononeko.app/">sshx</a>
+        <a href="https://doppel.hononeko.app/">doppel</a>
+        <a href="https://koshin.hononeko.app/">koshin</a>
+        <a href="https://github.com/hononeko/miru">Source</a>
+        <a href="https://github.com/hononeko/miru/blob/main/LICENSE">Apache-2.0 License</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

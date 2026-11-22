@@ -464,13 +464,52 @@ main section {
   color: var(--muted);
 }
 
-.shot {
+.shot,
+.shot-app {
   margin: clamp(-64px, -4vw, -24px) auto 0;
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--code-bg);
   box-shadow: var(--shadow), 0 0 0 1px var(--border);
+}
+
+.shot-app {
+  background: var(--surface);
+}
+
+.shot-app img {
+  width: 100%;
+}
+
+.shots-mobile {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 320px));
+  justify-content: center;
+  gap: 24px;
+}
+
+.shot-card {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.shot-card img {
+  width: 100%;
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid var(--border);
+}
+
+.shot-card figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
 }
 
 .shot::before {
@@ -666,6 +705,9 @@ pre.term .p {
   }
   .brand span {
     display: none;
+  }
+  .shots-mobile {
+    grid-template-columns: minmax(0, 320px);
   }
 }
 

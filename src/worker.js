@@ -4,7 +4,7 @@
 // normally served without the Worker (run_worker_first in wrangler.jsonc); it's passed through here too, so the
 // Worker stays correct if that changes.
 
-export const SITES = new Set(["sshx", "doppel", "koshin"]);
+export const SITES = new Set(["sshx", "doppel", "koshin", "miru"]);
 const HUB = "hub";
 const SHARED = "/_shared/";
 

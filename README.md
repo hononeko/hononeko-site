@@ -8,6 +8,7 @@ Landing pages for hononeko tools, served by one Cloudflare Worker:
 | [sshx.hononeko.app](https://sshx.hononeko.app) | [sshx](https://github.com/hononeko/sshx) |
 | [doppel.hononeko.app](https://doppel.hononeko.app) | [doppel](https://github.com/hononeko/doppel) |
 | [koshin.hononeko.app](https://koshin.hononeko.app) | [koshin](https://github.com/hononeko/koshin) |
+| [miru.hononeko.app](https://miru.hononeko.app) | [miru](https://github.com/hononeko/miru) |
 
 ## How it works
 
@@ -45,6 +46,7 @@ bun run dev           # hub at http://localhost:8787
 bun run dev:sshx      # the sshx page
 bun run dev:doppel    # the doppel page
 bun run dev:koshin    # the koshin page
+bun run dev:miru      # the miru page
 bun run test          # or test:coverage
 bun run check         # builds the deploy bundle without uploading it
 ```
