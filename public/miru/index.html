@@ -73,13 +73,13 @@
         <p class="lede">Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA backed by SQLite or PostgreSQL.</p>
 
         <div class="install">
-          <code id="install-cmd">docker run -d -p 8080:8080 -e PLEX_URL=http://plex:32400 -e PLEX_TOKEN=your-token -e AUTH_MODE=none -v miru-data:/data ghcr.io/hononeko/miru:latest</code>
+          <code id="install-cmd">docker run -d --name miru -p 8080:8080 -e AUTH_SESSION_SECRET="$(openssl rand -base64 48)" -e MIRU_ENCRYPTION_KEY="$(openssl rand -base64 48)" -v miru-data:/data ghcr.io/hononeko/miru:latest</code>
           <button class="copy" type="button" data-copy="#install-cmd">Copy</button>
         </div>
 
         <div class="actions">
           <a class="btn btn-primary" href="https://github.com/hononeko/miru">View on GitHub</a>
-          <a class="btn btn-ghost" href="https://github.com/hononeko/miru/blob/main/k8s/README.md">Kubernetes guide</a>
+          <a class="btn btn-ghost" href="https://github.com/hononeko/miru/blob/main/docs/k8s/README.md">Kubernetes guide</a>
         </div>
       </div>
     </div>
@@ -151,17 +151,15 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Quick start</h2>
-          <p>Run the multi-arch container image with SQLite, or deploy to Kubernetes using the Kustomize blueprint in <code>k8s/</code>.</p>
+          <p>Run the multi-arch container image with Docker Compose and SQLite, then open <code>http://localhost:8080</code>, create the first admin account and connect Plex from Admin. For Kubernetes, start from the example Kustomize manifests in <a href="https://github.com/hononeko/miru/blob/main/docs/k8s/README.md"><code>docs/k8s/</code></a>. Every setting is listed in the <a href="https://github.com/hononeko/miru/blob/main/docs/environment-variables.md">environment variable reference</a>.</p>
         </div>
-<pre class="term"><span class="p">$ </span>docker run -d --name miru -p 8080:8080 \
-    -e PLEX_URL=http://host.docker.internal:32400 \
-    -e PLEX_TOKEN=your-plex-token \
-    -e AUTH_SESSION_SECRET="$(openssl rand -hex 32)" \
-    -e MIRU_ADMIN_USERNAME=admin \
-    -e MIRU_ADMIN_PASSWORD=choose-a-strong-password \
-    -v miru-data:/data \
-    ghcr.io/hononeko/miru:latest
-<span class="p">$ </span>curl -fsS http://localhost:8080/readyz   <span class="c"># readiness check + OpenAPI at /api/v1/openapi.yaml</span></pre>
+<pre class="term"><span class="p">$ </span>mkdir miru &amp;&amp; cd miru
+<span class="p">$ </span>curl -fsSLO https://raw.githubusercontent.com/hononeko/miru/main/docs/docker-compose.yml
+<span class="p">$ </span>cat &gt; .env &lt;&lt;EOF
+AUTH_SESSION_SECRET=$(openssl rand -base64 48)
+MIRU_ENCRYPTION_KEY=$(openssl rand -base64 48)
+EOF
+<span class="p">$ </span>docker compose up -d   <span class="c"># SQLite on a named volume; see the file for PostgreSQL</span></pre>
       </div>
     </section>
   </main>
