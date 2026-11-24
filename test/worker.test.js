@@ -117,6 +117,30 @@ describe("site layout", () => {
     }
   });
 
+  test("every file theme.css references exists in /_shared/", () => {
+    const css = readFileSync("public/_shared/theme.css", "utf8");
+    const paths = [...css.matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1]);
+    expect(paths.length).toBeGreaterThan(0);
+    for (const path of paths) {
+      expect(path).toStartWith("/_shared/");
+      expect(existsSync(`public${path}`), path).toBe(true);
+    }
+  });
+
+  test("every page preloads the theme's fonts, each served with its license", () => {
+    const css = readFileSync("public/_shared/theme.css", "utf8");
+    const fonts = [...css.matchAll(/url\("([^"]+\.woff2)"\)/g)].map((m) => m[1]);
+    expect(fonts.length).toBeGreaterThan(0);
+    for (const font of fonts) {
+      expect(existsSync(`public${font.replace(".woff2", "-OFL.txt")}`), font).toBe(true);
+      for (const page of [...[...SITES, "hub"].map((s) => `public/${s}/index.html`), "public/_shared/404.html"]) {
+        expect(readFileSync(page, "utf8"), page).toContain(
+          `<link rel="preload" href="${font}" as="font" type="font/woff2" crossorigin>`,
+        );
+      }
+    }
+  });
+
   test("browsers cache shared files for a day, and nothing else", () => {
     const rules = readFileSync("public/_headers", "utf8").split("\n").filter((l) => l.trim() && !l.startsWith("#"));
     expect(rules).toEqual(["/_shared/*", "  Cache-Control: public, max-age=86400, stale-while-revalidate=604800"]);
