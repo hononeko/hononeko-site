@@ -42,7 +42,7 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 ├── .github/workflows/    # pr and deploy (main), both running validate
 ├── public/
 │   ├── _headers          # browser caching for /_shared/
-│   ├── _shared/          # theme.css, logo.webp + icons, ridge-*.svg, screenshots/, site.js, 404.html
+│   ├── _shared/          # theme.css, logo.webp (hero) + logo-mark.webp (nav, footer), icons, ridge-*.svg, screenshots/, site.js, 404.html
 │   ├── hub/              # hononeko.app
 │   ├── sshx/             # sshx.hononeko.app
 │   ├── doppel/           # doppel.hononeko.app
