@@ -18,8 +18,9 @@ Landing pages for hononeko tools, served by one Cloudflare Worker:
 
 Everything lives in `public/_shared/`:
 
-* `logo.webp`: an orange tabby in front of forested mountains, cut to a circle with a transparent background. `favicon-32.png` and `apple-touch-icon.png` (on pine) are made from it.
-* `theme.css`: tabby orange (`#e07a2c`) and pine green (`#1f4d3a`) on cream, with a dusk palette for dark mode. Every color is a token on `:root`.
+* `logo.webp`: the painted logo, an orange tabby in front of forested mountains, cut to a circle with a transparent background. It is the hub's hero logo, and `apple-touch-icon.png` (on pine) and `og-hub.png` are made from it.
+* `logo-mark.webp`: the two-colour line-art logo (tabby and pine) for the small marks in the nav and footer, where the painting turns to mush. `favicon-32.png` is made from it.
+* `theme.css`: tabby orange (`#e07a2c`) and pine green (`#1f4d3a`) on cool stone, with deep spruce surfaces and a dusk sky for dark mode. The values follow the Hononeko core palette. Every color is a token on `:root`.
 * `ridge-*.svg`: the mountain and spruce layers along the bottom of each hero, used as CSS masks, so their colors come from the theme.
 * `screenshots/`: each tool page's screenshot, also its link preview image.
 

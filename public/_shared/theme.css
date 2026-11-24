@@ -1,35 +1,36 @@
-/* hononeko theme: tabby orange on spruce green, shared by every hononeko.app page. */
+/* hononeko theme: tabby orange on spruce green, shared by every hononeko.app page.
+   Values follow the Hononeko core palette (tabby, spruce, sage and stone). */
 
 :root {
   color-scheme: light dark;
 
   /* Palette */
   --tabby: #e07a2c;
-  --tabby-deep: #b4501a;
+  --tabby-deep: #a84b18;
   --tabby-soft: #f4a259;
   --pine: #1f4d3a;
   --pine-deep: #12301f;
   --pine-mist: #8fb09c;
-  --cream: #fbf6ee;
+  --stone: #f5f7f5;
 
   /* Light */
-  --bg: var(--cream);
+  --bg: var(--stone);
   --surface: #ffffff;
-  --surface-2: #f3ebdd;
+  --surface-2: #e9eee9;
   --text: #16302a;
   --muted: #4d6359;
-  --border: #e4d9c7;
+  --border: #d6dcd6;
   --accent: var(--tabby);
   --accent-text: var(--tabby-deep);
-  --on-accent: #ffffff;
+  --on-accent: #16302a;
   --sky-top: #f4a259;
   --sky-bottom: #fce3c2;
   --ridge-far: #8fb09c;
   --ridge-near: #2a5a43;
   --sun: #fff1dc;
   --sun-opacity: 0.55;
-  --code-bg: #12261d;
-  --code-text: #f1e8d9;
+  --code-bg: #112019;
+  --code-text: #e7ebe4;
   --code-muted: #8fb09c;
   --shadow: 0 1px 2px rgb(18 48 31 / 6%), 0 8px 24px rgb(18 48 31 / 8%);
 
@@ -42,12 +43,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1f18;
-    --surface: #15291f;
-    --surface-2: #1c3328;
-    --text: #f1e8d9;
+    --bg: #030705;
+    --surface: #08130d;
+    --surface-2: #112019;
+    --text: #e7ebe4;
     --muted: #a9bbaf;
-    --border: #2a4436;
+    --border: #1e3026;
     --accent: #f08a3c;
     --accent-text: #f4a259;
     --on-accent: #1a0e05;
@@ -57,18 +58,18 @@
     --ridge-near: #173527;
     --sun: #f4b77a;
     --sun-opacity: 0.3;
-    --code-bg: #0a1712;
+    --code-bg: #112019;
     --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0e1f18;
-  --surface: #15291f;
-  --surface-2: #1c3328;
-  --text: #f1e8d9;
+  --bg: #030705;
+  --surface: #08130d;
+  --surface-2: #112019;
+  --text: #e7ebe4;
   --muted: #a9bbaf;
-  --border: #2a4436;
+  --border: #1e3026;
   --accent: #f08a3c;
   --accent-text: #f4a259;
   --on-accent: #1a0e05;
@@ -78,7 +79,7 @@
   --ridge-near: #173527;
   --sun: #f4b77a;
   --sun-opacity: 0.3;
-  --code-bg: #0a1712;
+  --code-bg: #112019;
   --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
 }
 
@@ -258,7 +259,7 @@ pre {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: #1b1a17;
+  color: #16302a;
   text-decoration: none;
   font: 800 1.2rem/1 var(--font-display);
 }
@@ -287,7 +288,7 @@ pre {
   display: block;
   padding: 8px 12px;
   border-radius: 999px;
-  color: #1b1a17;
+  color: #16302a;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
@@ -300,12 +301,12 @@ pre {
 .hero-body {
   padding-block: clamp(24px, 6vw, 64px) 0;
   max-width: 720px;
-  color: #1b1a17;
+  color: #16302a;
 }
 
 .hero-body .lede {
   font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-  color: #3a2f25;
+  color: #16302a;
   max-width: 60ch;
 }
 
@@ -324,13 +325,13 @@ pre {
 /* In dark mode the sky is dusk-brown, so hero text goes light. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) :is(.brand, .nav ul a, .hero-body) {
-    color: #fbf1e3;
+    color: #e7ebe4;
   }
   :root:not([data-theme="light"]) .hero-body .lede {
-    color: #ead9c5;
+    color: #d6dcd6;
   }
   :root:not([data-theme="light"]) .eyebrow {
-    color: #fbf1e3;
+    color: #e7ebe4;
     background: rgb(0 0 0 / 22%);
   }
   :root:not([data-theme="light"]) .nav ul a:hover {
@@ -339,15 +340,15 @@ pre {
 }
 
 :root[data-theme="dark"] :is(.brand, .nav ul a, .hero-body) {
-  color: #fbf1e3;
+  color: #e7ebe4;
 }
 
 :root[data-theme="dark"] .hero-body .lede {
-  color: #ead9c5;
+  color: #d6dcd6;
 }
 
 :root[data-theme="dark"] .eyebrow {
-  color: #fbf1e3;
+  color: #e7ebe4;
   background: rgb(0 0 0 / 22%);
 }
 
@@ -521,7 +522,7 @@ main section {
     radial-gradient(circle at 18px 15px, #ff6159 5px, transparent 5.5px),
     radial-gradient(circle at 36px 15px, #ffbd2e 5px, transparent 5.5px),
     radial-gradient(circle at 54px 15px, #28c941 5px, transparent 5.5px),
-    #1a2e24;
+    #112019;
 }
 
 .grid {
@@ -654,19 +655,19 @@ pre.term .p {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .tags li {
-    color: #cfe0d5;
+    color: #b7cfc0;
   }
 }
 
 :root[data-theme="dark"] .tags li {
-  color: #cfe0d5;
+  color: #b7cfc0;
 }
 
 /* Footer: the forest floor */
 
 .foot {
   background: var(--pine-deep);
-  color: #cfe0d5;
+  color: #b7cfc0;
   padding-block: 36px;
   font-size: 0.95rem;
 }
@@ -680,7 +681,7 @@ pre.term .p {
 }
 
 .foot .brand {
-  color: #fbf1e3;
+  color: #e7ebe4;
   font-size: 1.05rem;
 }
 
