@@ -18,9 +18,11 @@ Landing pages for hononeko tools, served by one Cloudflare Worker:
 
 Everything lives in `public/_shared/`:
 
-* `logo.webp`: the painted logo, an orange tabby in front of forested mountains, cut to a circle with a transparent background. It is the hub's hero logo, and `apple-touch-icon.png` (on pine) and `og-hub.png` are made from it.
+* `logo.webp`: the painted logo, an orange tabby in front of forested mountains, cut to a circle with a transparent background. It is the hub's hero logo, and `apple-touch-icon.png` (on pine) is made from it.
+* `og-hub.png`: the hub's link preview, a 1200×630 light-mode render of its hero without the nav. Render it again when the hero, the logo or the fonts change.
 * `logo-mark.webp`: the two-colour line-art logo (tabby and pine) for the small marks in the nav and footer, where the painting turns to mush. `favicon-32.png` is made from it.
 * `theme.css`: tabby orange (`#e07a2c`) and pine green (`#1f4d3a`) on cool stone, with deep spruce surfaces and a dusk sky for dark mode. The values follow the Hononeko core palette. Every color is a token on `:root`.
+* `fonts/`: Josefin Sans for the brand name and the app names in the heroes (`--font-brand`), and Montserrat for headings (`--font-display`); body text uses the system font. Both are variable fonts from [google/fonts](https://github.com/google/fonts/tree/main/ofl), served from the site and preloaded by every page, each next to its SIL Open Font License. Montserrat is cut to Latin with `pyftsubset`. Josefin Sans has a Reserved Font Name, so a subset couldn't keep its name: it is the whole, unmodified font, only compressed with `woff2_compress`.
 * `ridge-*.svg`: the mountain and spruce layers along the bottom of each hero, used as CSS masks, so their colors come from the theme.
 * `screenshots/`: each tool page's screenshot, also its link preview image.
 

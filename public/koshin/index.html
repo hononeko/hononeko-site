@@ -20,6 +20,8 @@
   <link rel="canonical" href="https://koshin.hononeko.app/">
   <link rel="icon" href="/_shared/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/_shared/apple-touch-icon.png">
+  <link rel="preload" href="/_shared/fonts/josefin-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/_shared/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/_shared/theme.css">
   <script src="/_shared/site.js" defer></script>
   <script type="application/ld+json">
@@ -68,7 +70,7 @@
 
       <div class="hero-body">
         <span class="eyebrow">Renovate orchestrator</span>
-        <h1>koshin</h1>
+        <h1 class="app-name">koshin</h1>
         <p class="lede">Renovate on Kubernetes, run when there's work to do. A proxy coalesces GitHub and GitLab webhooks and starts worker Jobs on demand, so nothing runs while the queue is empty, and no autoscaler is needed.</p>
 
         <div class="install">

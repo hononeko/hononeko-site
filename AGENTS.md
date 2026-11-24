@@ -19,6 +19,7 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 ## 2. Rules
 
 * **One theme:** colors, fonts and components come from `public/_shared/theme.css`. Pages add no colors of their own; a new color is a token on `:root`, with a dark-mode value in both dark blocks.
+* **Fonts:** Josefin Sans (`--font-brand`) for the brand name and the app name in a hero (`<h1 class="app-name">`), Montserrat (`--font-display`) for every other heading, the system font for text. Fonts are self-hosted in `public/_shared/fonts/`, each with its license.
 * **Tabby and pine:** orange (`--tabby`) is the accent, pine green (`--pine`) the structure. Keep the logo, the dusk sky and the spruce ridges on every page.
 * **No inline scripts or styles:** the Worker's Content-Security-Policy only allows files from the site itself. Scripts go in `public/_shared/site.js`, styles in `theme.css`. The one exception is a page's JSON-LD block (`application/ld+json`), which is data that browsers never run.
 * **Discoverable:** each site has its own `robots.txt` and `sitemap.xml`, and each page a canonical URL, Open Graph tags with an image, and JSON-LD.
@@ -42,7 +43,7 @@ CI (`validate.yml`) also lints the workflows with actionlint and zizmor (`honone
 ├── .github/workflows/    # pr and deploy (main), both running validate
 ├── public/
 │   ├── _headers          # browser caching for /_shared/
-│   ├── _shared/          # theme.css, logo.webp (hero) + logo-mark.webp (nav, footer), icons, ridge-*.svg, screenshots/, site.js, 404.html
+│   ├── _shared/          # theme.css, fonts/, logo.webp (hero) + logo-mark.webp (nav, footer), icons, ridge-*.svg, screenshots/, site.js, 404.html
 │   ├── hub/              # hononeko.app
 │   ├── sshx/             # sshx.hononeko.app
 │   ├── doppel/           # doppel.hononeko.app
