@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>miru · Media server telemetry</title>
-  <meta name="description" content="miru is a lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA.">
+  <meta name="description" content="miru is a lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA in a 70.7 MiB Distroless container.">
   <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="miru">
-  <meta property="og:description" content="Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics.">
+  <meta property="og:description" content="Lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics.">
   <meta property="og:image" content="https://miru.hononeko.app/_shared/screenshots/miru-web.png">
   <meta property="og:image:width" content="1440">
   <meta property="og:image:height" content="1104">
@@ -27,7 +27,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "miru",
-    "description": "Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA.",
+    "description": "Lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA.",
     "url": "https://miru.hononeko.app/",
     "image": "https://miru.hononeko.app/_shared/screenshots/miru-web.png",
     "applicationCategory": "MultimediaApplication",
@@ -62,7 +62,8 @@
         <a class="brand" href="https://hononeko.app/"><img src="/_shared/logo-mark.webp" alt="" width="40" height="40"><span>hononeko</span></a>
         <ul>
           <li><a href="#features">Features</a></li>
-          <li><a href="#quick-start">Quick start</a></li>
+          <li><a href="#benchmarks">Benchmarks</a></li>
+          <li><a href="#security">Security</a></li>
           <li><a href="https://github.com/hononeko/miru">GitHub</a></li>
         </ul>
       </nav>
@@ -70,7 +71,7 @@
       <div class="hero-body">
         <span class="eyebrow">Media server telemetry</span>
         <h1>miru</h1>
-        <p class="lede">Lightweight media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA backed by SQLite or PostgreSQL.</p>
+        <p class="lede">Lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA in a 70.7 MiB Distroless container.</p>
 
         <div class="install">
           <code id="install-cmd">docker run -d --name miru -p 8080:8080 -e AUTH_SESSION_SECRET="$(openssl rand -base64 48)" -e MIRU_ENCRYPTION_KEY="$(openssl rand -base64 48)" -v miru-data:/data ghcr.io/hononeko/miru:latest</code>
@@ -116,7 +117,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Built for Plex, typed end to end</h2>
-          <p>A Kotlin 2.4 / Ktor 3 API with Arrow-kt typed errors and an OpenAPI 3.1 contract, bundling a static SvelteKit 2 + Svelte 5 frontend into one container.</p>
+          <p>A Kotlin 2.4 / Ktor 3 API with Arrow-kt typed errors and an OpenAPI 3.1 contract, bundling a static SvelteKit 2 + Svelte 5 frontend into one hardened container.</p>
         </div>
         <div class="grid">
           <article class="card">
@@ -125,23 +126,136 @@
           </article>
           <article class="card">
             <h3>Playback history &amp; RBAC scoping</h3>
-            <p>Records play sessions with resume-window merging and watch thresholds. Link <code>USER</code> accounts to specific Plex users to scope all views and history.</p>
+            <p>Records play sessions with resume-window merging, watch thresholds, and Tautulli SQLite import. Link <code>USER</code> accounts to Plex users to scope views, metadata, and artwork.</p>
           </article>
           <article class="card">
             <h3>Library codec &amp; growth analytics</h3>
-            <p>Break down library sections by video codec, resolution, audio format, and item growth over time across movies, TV shows, and episodes.</p>
+            <p>Break down library sections by video codec, resolution, audio format, stale storage, and item growth over time across movies, TV shows, and episodes.</p>
           </article>
           <article class="card">
             <h3>OIDC, local &amp; API key auth</h3>
-            <p>Run with local HMAC-SHA256 session cookies, OIDC single sign-on (or hybrid mode), and SHA-256 hashed <code>miru_...</code> API keys for automation.</p>
+            <p>Run with Argon2id local login, PKCE <code>S256</code> OIDC single sign-on (or hybrid mode), rate limiting, and SHA-256 hashed <code>miru_...</code> API keys for automation.</p>
           </article>
           <article class="card">
             <h3>SQLite &amp; PostgreSQL parity</h3>
             <p>Start immediately with embedded SQLite, or point <code>DB_ENGINE=postgres</code> at PostgreSQL. Both engines share Flyway migrations and Exposed repositories.</p>
           </article>
           <article class="card">
-            <h3>Single container, OpenAPI 3.1</h3>
-            <p>Ktor serves the built SvelteKit PWA from <code>/opt/miru/static</code> alongside <code>/healthz</code>, <code>/readyz</code>, and <code>/api/v1/openapi.yaml</code>.</p>
+            <h3>Distroless container &amp; OpenAPI 3.1</h3>
+            <p>Ships in a 70.7 MiB shell-less Distroless <code>jlink</code> image serving the built SvelteKit PWA alongside <code>/healthz</code>, <code>/readyz</code>, and <code>/api/v1/openapi.yaml</code>.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmarks">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Measured against Tautulli</h2>
+          <p>Side-by-side containerized benchmarks on a shared 10,000-play dataset under identical <code>2 vCPU / 512 MiB</code> limits against Tautulli v2.19.1.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-value">18×</span>
+            <span class="stat-label">Faster live UI updates</span>
+            <p class="stat-note">526–528 ms via WS + SSE vs. 9.5 s polling, with 7.4× less 30s live traffic.</p>
+          </div>
+          <div class="stat">
+            <span class="stat-value">12×</span>
+            <span class="stat-label">Higher history throughput</span>
+            <p class="stat-note">642 req/s (11 ms p50) on PostgreSQL vs. 53 req/s (165 ms p50) at 10 clients.</p>
+          </div>
+          <div class="stat">
+            <span class="stat-value">15×</span>
+            <span class="stat-label">Faster cached artwork</span>
+            <p class="stat-note">5,482 req/s (1.56 ms p50) from memory vs. 370 req/s (29.3 ms p50) on disk.</p>
+          </div>
+          <div class="stat">
+            <span class="stat-value">70.7 MiB</span>
+            <span class="stat-label">Distroless image (amd64)</span>
+            <p class="stat-note">181 MiB unpacked — 39% smaller than Tautulli's 296 MiB unpacked image.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="bench">
+            <thead>
+              <tr>
+                <th scope="col">Benchmark (10,000 plays)</th>
+                <th scope="col">Miru (SQLite)</th>
+                <th scope="col">Miru (PostgreSQL 17)</th>
+                <th scope="col">Tautulli (SQLite)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Live UI update latency</td>
+                <td class="win">526–528 ms</td>
+                <td>—</td>
+                <td>9.5 s</td>
+              </tr>
+              <tr>
+                <td>30s live traffic (3 streams)</td>
+                <td class="win">0 reqs / 8.7 KiB</td>
+                <td>—</td>
+                <td>3 reqs / 64.7 KiB</td>
+              </tr>
+              <tr>
+                <td>History p.1 (c=10, p50 / rps)</td>
+                <td>41.8 ms / 192 rps</td>
+                <td class="win">11.0 ms / 642 rps</td>
+                <td>164.7 ms / 53 rps</td>
+              </tr>
+              <tr>
+                <td>30d overview stats (c=10)</td>
+                <td>207.2 ms / 47 rps</td>
+                <td class="win">76.3 ms / 129 rps</td>
+                <td>701.7 ms / 15 rps</td>
+              </tr>
+              <tr>
+                <td>Cached artwork proxy (c=10)</td>
+                <td class="win">1.56 ms / 5,482 rps</td>
+                <td>—</td>
+                <td>29.3 ms / 370 rps</td>
+              </tr>
+              <tr>
+                <td>Cold start / 10k import</td>
+                <td class="win">1.23 s / 651 ms</td>
+                <td>1.34 s / 1.92 s</td>
+                <td>1.48 s / —</td>
+              </tr>
+              <tr>
+                <td>Image size (compressed / unpacked)</td>
+                <td class="win">70.7 / 181.0 MiB</td>
+                <td class="win">70.7 / 181.0 MiB</td>
+                <td>72.8 / 296.1 MiB</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="bench-note">Trade-off: Tautulli uses less idle RAM (82 MiB vs. Miru's 232–241 MiB JVM baseline) and compresses initial HTML with gzip. Read the full methodology and numbers in <a href="https://github.com/hononeko/miru/blob/main/docs/benchmarks.md"><code>docs/benchmarks.md</code></a>.</p>
+      </div>
+    </section>
+
+    <section id="security">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Hardened by default</h2>
+          <p>Plex tokens, sessions, and outbound fetches stay behind a single typed Ktor boundary. Every control is source-verified in <a href="https://github.com/hononeko/miru/blob/main/docs/security.md"><code>docs/security.md</code></a>.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Auth, rate limits &amp; section RBAC</h3>
+            <p>Argon2id hashing with a 4-way concurrency cap, bounded per-IP and per-account rate limiting, proxy-aware <code>Secure</code> <code>HttpOnly</code> cookies, asymmetric PKCE <code>S256</code> OIDC, and fail-closed Plex library-section RBAC across metadata, artwork, and SSE.</p>
+          </article>
+          <article class="card">
+            <h3>CSP, encrypted secrets &amp; SSRF defense</h3>
+            <p>Global security headers with startup SHA-256 CSP script hashes, AES-256-GCM encrypted Plex tokens that never reach the browser, DNS public-IP validation with socket-pinned HTTPS avatar fetches, XXE-disabled XML parsers, and read-only 256 MiB capped SQLite imports.</p>
+          </article>
+          <article class="card">
+            <h3>Distroless &amp; supply-chain gates</h3>
+            <p>Digest-pinned shell-less Distroless + 14-module <code>jlink</code> runtime as UID <code>10001</code> with <code>--read-only</code> and <code>/tmp:noexec</code>, Kubernetes <code>restricted</code> PSS manifests, blocking Trivy CVE scans, CodeQL, and GHCR Artifact Attestations.</p>
           </article>
         </div>
       </div>
