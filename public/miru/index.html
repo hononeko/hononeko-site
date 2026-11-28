@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>miru · Media server telemetry</title>
-  <meta name="description" content="miru is a lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA in a 68.0 MiB Distroless container.">
+  <meta name="description" content="miru is a lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics service built with Kotlin/Ktor and a SvelteKit PWA in a 73.5 MiB Distroless container.">
   <meta name="theme-color" content="#f4a259" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#3b2a22" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="miru">
@@ -73,7 +73,7 @@
       <div class="hero-body">
         <span class="eyebrow">Media server telemetry</span>
         <h1 class="app-name">miru</h1>
-        <p class="lede">Lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA in a 68.0 MiB Distroless container.</p>
+        <p class="lede">Lightweight, security-hardened media server telemetry, live stream monitor, playback history tracker, and library analytics. Built with Kotlin, Ktor, Arrow-kt, and a SvelteKit PWA in a 73.5 MiB Distroless container.</p>
 
         <div class="install">
           <code id="install-cmd">docker run -d --name miru -p 8080:8080 -e AUTH_SESSION_SECRET="$(openssl rand -base64 48)" -e MIRU_ENCRYPTION_KEY="$(openssl rand -base64 48)" -v miru-data:/data ghcr.io/hononeko/miru:latest</code>
@@ -144,7 +144,7 @@
           </article>
           <article class="card">
             <h3>One small, self-contained image</h3>
-            <p>The API and installable PWA ship together in a 68.0 MiB Distroless container, complete with <code>/healthz</code>, <code>/readyz</code>, and a live OpenAPI spec.</p>
+            <p>The API and installable PWA ship together in a 73.5 MiB Distroless container, complete with <code>/healthz</code>, <code>/readyz</code>, and a live OpenAPI spec.</p>
           </article>
         </div>
       </div>
@@ -161,7 +161,7 @@
           <article class="stat">
             <span class="stat-value">18×</span>
             <h3>Faster live UI updates</h3>
-            <p class="stat-note">Real-time WebSocket + SSE push updates the dashboard in half a second with 7.4× less live traffic than polling.</p>
+            <p class="stat-note">Real-time WebSocket + SSE push updates the dashboard in half a second with 6.9× less live traffic than polling.</p>
             <div class="bench-bars" aria-label="Live update latency comparison: Miru 0.53s vs Tautulli 9.5s">
               <div class="bench-row">
                 <div class="bench-meta"><span>Miru</span><strong>0.53 s</strong></div>
@@ -175,39 +175,39 @@
           </article>
 
           <article class="stat">
-            <span class="stat-value">43×</span>
+            <span class="stat-value">126×</span>
             <h3>Higher concurrent analytics throughput</h3>
-            <p class="stat-note">Single-pass streaming serves 10 clients on 30-day stats at 15.5 ms median (and 802 req/s paginated history) on PostgreSQL.</p>
-            <div class="bench-bars" aria-label="Concurrent 30-day analytics throughput comparison: Miru 598 req/s vs Tautulli 14 req/s">
+            <p class="stat-note">An in-memory stats cache, cleared on every new play, serves 10 clients 30-day stats at 2.7 ms median on PostgreSQL. Paginated history, straight from the database, runs at 2,354 req/s.</p>
+            <div class="bench-bars" aria-label="Concurrent 30-day analytics throughput comparison: Miru 3,390 req/s vs Tautulli 27 req/s">
               <div class="bench-row">
-                <div class="bench-meta"><span>Miru (PG)</span><strong>598 req/s</strong></div>
+                <div class="bench-meta"><span>Miru (PG)</span><strong>3,390 req/s</strong></div>
                 <div class="bench-track"><span class="bench-fill bench-fill-miru bench-w-100"></span></div>
               </div>
               <div class="bench-row">
-                <div class="bench-meta"><span>Tautulli</span><span>14 req/s</span></div>
-                <div class="bench-track"><span class="bench-fill bench-fill-other bench-w-2"></span></div>
+                <div class="bench-meta"><span>Tautulli</span><span>27 req/s</span></div>
+                <div class="bench-track"><span class="bench-fill bench-fill-other bench-w-1"></span></div>
               </div>
             </div>
           </article>
 
           <article class="stat">
-            <span class="stat-value">7×</span>
+            <span class="stat-value">6×</span>
             <h3>Faster cached artwork</h3>
-            <p class="stat-note">In-memory poster caching serves repeated thumbnails at 1.67 ms median across 10 clients — paired with a 68.0 MiB Distroless image.</p>
-            <div class="bench-bars" aria-label="Cached artwork throughput comparison: Miru 5,489 req/s vs Tautulli 785 req/s">
+            <p class="stat-note">In-memory poster caching serves repeated thumbnails at 0.81 ms median across 10 clients — paired with a 73.5 MiB Distroless image.</p>
+            <div class="bench-bars" aria-label="Cached artwork throughput comparison: Miru 9,632 req/s vs Tautulli 1,550 req/s">
               <div class="bench-row">
-                <div class="bench-meta"><span>Miru</span><strong>5,489 req/s</strong></div>
+                <div class="bench-meta"><span>Miru</span><strong>9,632 req/s</strong></div>
                 <div class="bench-track"><span class="bench-fill bench-fill-miru bench-w-100"></span></div>
               </div>
               <div class="bench-row">
-                <div class="bench-meta"><span>Tautulli</span><span>785 req/s</span></div>
-                <div class="bench-track"><span class="bench-fill bench-fill-other bench-w-14"></span></div>
+                <div class="bench-meta"><span>Tautulli</span><span>1,550 req/s</span></div>
+                <div class="bench-track"><span class="bench-fill bench-fill-other bench-w-16"></span></div>
               </div>
             </div>
           </article>
         </div>
 
-        <p class="bench-note">Trade-off: Tautulli uses less RAM (82 MiB vs. Miru's 163–183 MiB active/post-load JVM working set, settling to 148 MiB idle). See all SQLite, PostgreSQL, cold-start, and browser numbers in <a href="https://github.com/hononeko/miru/blob/main/docs/benchmarks.md"><code>docs/benchmarks.md</code></a>.</p>
+        <p class="bench-note">Trade-off: Tautulli uses less RAM (82 MiB vs. Miru's 171–198 MiB JVM working set after an import and under load). See all SQLite, PostgreSQL, cold-start, and browser numbers in <a href="https://github.com/hononeko/miru/blob/main/docs/benchmarks.md"><code>docs/benchmarks.md</code></a>.</p>
       </div>
     </section>
 
