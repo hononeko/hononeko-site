@@ -696,10 +696,9 @@ main section {
   opacity: 0.6;
 }
 
-.bench-w-2 { width: 2%; }
+.bench-w-1 { width: 1%; }
 .bench-w-6 { width: 6%; }
-.bench-w-7 { width: 7%; }
-.bench-w-14 { width: 14%; }
+.bench-w-16 { width: 16%; }
 .bench-w-100 { width: 100%; }
 
 .bench-note {
